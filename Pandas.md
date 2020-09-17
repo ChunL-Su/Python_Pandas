@@ -17,7 +17,7 @@ dtype: float64
 ```
 - 2、二维数据表dataframe基础使用
 ```
-df = pd.DataFrame(数据，index=每行的名称，colums=每列的名称)
+df = pd.DataFrame(数据，index=每行的名称，columns=每列的名称)
 # 如果只给定数据，则DataFrame的行列默认使用0,1,2....
 
 import numpy as np
