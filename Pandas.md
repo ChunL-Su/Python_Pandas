@@ -17,7 +17,7 @@ dtype: float64
 ```
 - 2、二维数据表dataframe基础使用
 ```
-df = pd.DataFrame(数据，index=每行的名称，columns=每列的名称)
+df = pd.DataFrame(数据，index=每行的名称，colums=每列的名称)
 # 如果只给定数据，则DataFrame的行列默认使用0,1,2....
 
 import numpy as np
@@ -51,3 +51,31 @@ df = pd.DataFrame(data, index=dates, columns=['A','B','C','D'])
 2020-01-05  0.296888 -1.876355  0.903563  1.572263
 2020-01-06 -0.515130  0.670423  1.431760  0.414356
 ```
+- 3、以字典形式在DataFrame中添加数据
+```python
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame({'A':1,
+                   'B':pd.Timestamp('20200101'),
+                   'C':pd.Series(1,index=list(range(4)),dtype=int),
+                   'D':np.array([3]*4,dtype=int),
+                   'E':pd.Categorical(["test","train","test1","foo"]),
+                   'F':'Foo'})
+print(df)
+```
+```
+>>>
+   A          B  C  D      E    F
+0  1 2020-01-01  1  3   test  Foo
+1  1 2020-01-01  1  3  train  Foo
+2  1 2020-01-01  1  3  test1  Foo
+3  1 2020-01-01  1  3    foo  Foo
+```
+- 4、pandas中常用的一些小的功能
+    - df.describe()  # 快速生成DataFrame中数据的方差平均值等描述数据的结果，但只统计数值数据，字符串等数据会忽略
+    - df.T           # 把DataFrame看成是一个矩阵，进行转置操作
+    - df.sort_index(axis=1,ascending=False)  #按列名(axis=1)倒序(ascending=False)排序
+    - df.sort_insex(axis=0,ascending=True)   #按行名(axis=0)正序(ascending=True)排序
+    - df.sort_values(by="列名")
+    
