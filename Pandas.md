@@ -78,4 +78,37 @@ print(df)
     - df.sort_index(axis=1,ascending=False)  #按列名(axis=1)倒序(ascending=False)排序
     - df.sort_insex(axis=0,ascending=True)   #按行名(axis=0)正序(ascending=True)排序
     - df.sort_values(by="列名")
-    
+
+## 使用Dataframe中的数据
+- 1、选取出某列的数据
+```
+print(df['列名'])
+print(df.列名)
+```
+- 2、使用切片的方式选取行数据
+```
+df[0:3]  # 选取前三行，索引0,1,2的行数据
+df[行名1:行名2]   # 选取两行之间(包含两行边界)的数据
+```
+- 3、select by label:loc 通过标签来选择
+```
+df.loc[标签名]  # 目前和方法一效果基本一样
+df.loc[:,[列名1:列名2]]   # 通过行列的方式具体指定某一小部分的数据
+                        # 逗号前为行，逗号后为列
+                        # 此处选取了所有的行
+```
+- 4、select by position:iloc #通过具体的位置选取数据
+```
+df.iloc[3]   #直接第三行的数据就出来了
+df.iloc[3,1]   # 第三行第一个数据(索引为1的数据)
+df.iloc[3:5,1:3]  # 第3~4行，1~2列的数据(索引数字)
+df.iloc[[1,2,5],1:3] # 不连续选取，只选1，2，5行，1~2列的数据
+```
+- 5、mixed selection:ix # 混合筛选(数字和标签混合使用)
+```
+df.ix[:3,['列名1','列名2']]
+```
+- 6、Boolean indexing # 布尔筛选(选取出符合条件的行)
+```
+df[df.列名>8]  # 先判断某列所有大于8的数据，然后显示出包含这些数据的行
+```
