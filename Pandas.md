@@ -240,7 +240,7 @@ print(res)
 ```
 - 2、可使用ignore_index参数统一第一列的索引
 ```
-res = pd.concat([df1, df2], axis=0)
+res = pd.concat([df1, df2], axis=0, ignore_index=True)
 print(res)
 
 >>>
