@@ -240,7 +240,7 @@ print(res)
 ```
 - 2、可使用ignore_index参数统一第一列的索引
 ```
-res = pd.concat([df1, df2], axis=0, ignore_index=True)
+res = pd.concat([df1, df2], axis=0)
 print(res)
 
 >>>
@@ -251,4 +251,46 @@ print(res)
 3  1  1  1  1
 4  1  1  1  1
 5  1  1  1  1
+```
+- 3、对于列名不完全相同的数据合并,使用join参数
+```
+res = pd.concat([df1,df2],join={'inner','outer'})
+# join参数默认为'outer'
+
+# 例如有如下df1,df2
+# df1
+   a  b  c  d
+0  0  0  0  0
+1  0  0  0  0
+2  0  0  0  0
+# df2
+   b  c  d  e
+1  1  1  1  1
+2  1  1  1  1
+3  1  1  1  1
+```
+```
+res = pd.concat([df1,df2],join='inner')
+>>>
+   b  c  d
+0  0  0  0
+1  0  0  0
+2  0  0  0
+1  1  1  1
+2  1  1  1
+3  1  1  1
+```
+- 4、append添加数据
+```
+res = df1.append([dfm,...,dfn])
+# 这样就从上往下一个一个的加在df1的后边了
+____
+|df1|
+|dfm|
+| · |
+| · |
+| · |
+|dfn|
+ ----
+# 当然也可以使用axis，ignore_index参数设置合并维度，或index的统一
 ```
