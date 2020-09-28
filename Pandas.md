@@ -143,3 +143,112 @@ df.fillna(value=0)  # 将所有nan值修改成0
 df.isnull()   # 返回一个和原数据同样大小的数据表，但是nan转化为True，非nan转化为False
 np.any(df.isnull())==True  # np.any(数据表)=='某数据' 检索数据表中是否存在'某数据'
 ```
+## 导入/导出数据
+- 1、导入数据常用方法
+```
+read_csv
+read_excel
+read_hdf
+read_sql
+read_json
+read_msgpack
+read_html
+read_gbq
+read_stata
+read_sas
+read_clipboard
+read_pickle
+```
+- 2、导出数据常用方法
+```
+to_csv
+to_excel
+to_hdf
+to_sql
+to_json
+to_msgpack
+to_html
+to_gbq
+to_stata
+to_sas
+to_clipboard
+to_pickle
+```
+- 3、使用导入方法
+```python
+import pandas as pd
+
+data = pd.read_csv(r'D:\stu.csv', encoding='gbk')  # 数据中有中文的话，一定加上encoding='gbk'
+print(data)
+```
+```
+>>>
+  name  age gender
+0    A   21      男
+1    B   22      女
+2    C   23      男
+3    D   24      女
+4    E   25      女
+5    F   26      女
+```
+- 4、导出方法
+```python
+import pandas as pd
+
+data = pd.read_csv(r'D:\stu.csv', encoding='gbk')  # 数据中有中文的话，一定加上encoding='gbk'
+print(data)
+
+# 以上为导入方法
+# 下面是导出成pickle格式的文件
+data.to_pickle(r'D:\student.pickle')
+```
+## 多个DataFrame合并(concatenating)
+- 1、直接合并
+```python
+import pandas as pd
+import numpy as np
+
+df1 = pd.DataFrame(np.ones((3, 4))*0, columns=['a', 'b', 'c', 'd'], dtype='int')
+df2 = pd.DataFrame(np.ones((3, 4))*1, columns=['a', 'b', 'c', 'd'], dtype='int')
+print(df1)
+print(df2)
+```
+```
+>>>
+   a  b  c  d
+0  0  0  0  0
+1  0  0  0  0
+2  0  0  0  0
+
+   a  b  c  d
+0  1  1  1  1
+1  1  1  1  1
+2  1  1  1  1
+```
+```
+res = pd.concat([df1, df2], axis=0)
+print(res)
+
+>>>
+   a  b  c  d
+0  0  0  0  0
+1  0  0  0  0
+2  0  0  0  0
+0  1  1  1  1
+1  1  1  1  1
+2  1  1  1  1
+```
+- 2、可使用ignore_index参数统一第一列的索引
+```
+res = pd.concat([df1, df2], axis=0)
+print(res)
+
+>>>
+   a  b  c  d
+0  0  0  0  0
+1  0  0  0  0
+2  0  0  0  0
+3  1  1  1  1
+4  1  1  1  1
+5  1  1  1  1
+```
