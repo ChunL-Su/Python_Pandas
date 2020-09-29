@@ -284,7 +284,7 @@ res = pd.concat([df1,df2],join='inner')
 ```
 res = df1.append([dfm,...,dfn])
 # 这样就从上往下一个一个的加在df1的后边了
-____
+ ____
 |df1|
 |dfm|
 | · |
@@ -294,3 +294,55 @@ ____
  ----
 # 当然也可以使用axis，ignore_index参数设置合并维度，或index的统一
 ```
+- 5、merge合并
+```python
+# 针对两组数据key顺序相同
+import pandas as pd
+
+left = pd.DataFrame({'key': ['k0', 'k1', 'k2'],
+                     'a': ['a0', 'a1', 'a2'],
+                     'b': ['b0', 'b1', 'b3']})
+right = pd.DataFrame({'key': ['k0', 'k1', 'k2'],
+                      'c': ['c0', 'c1', 'c2'],
+                      'd': ['d0', 'd1', 'd3']})
+res = pd.merge(left, right, on='key')
+print(res)
+```
+```
+>>>
+  key   a   b   c   d
+0  k0  a0  b0  c0  d0
+1  k1  a1  b1  c1  d1
+2  k2  a2  b3  c2  d3
+```
+```python
+# 如果两组数据存在多个key，或者key的顺序不同，则需要加上how参数
+# how = {'left', 'right', 'outer', 'inner'}
+import pandas as pd
+
+left = pd.DataFrame({'key1': ['k0', 'k1', 'k2'],
+                     'key2': ['k0', 'k0', 'k2'],
+                     'a': ['a0', 'a1', 'a2'],
+                     'b': ['b0', 'b1', 'b3']})
+right = pd.DataFrame({'key1': ['k0', 'k0', 'k2'],
+                      'key2': ['k0', 'k1', 'k2'],
+                      'c': ['c0', 'c1', 'c2'],
+                      'd': ['d0', 'd1', 'd3']})
+res = pd.merge(left, right, on=['key1', 'key2'], how='inner')
+print(res)
+```
+```
+# inner
+# 只有在两组数据中[key1,key2]的顺序相同的数据才会被列出
+>>>
+  key1 key2   a   b   c   d
+0   k0   k0  a0  b0  c0  d0
+1   k2   k2  a2  b3  c2  d3
+```
+```python
+# 以上都是针对列key的合并，其实也可以针对行index进行合并
+# 只需要在merge函数中添加以下参数
+right_index = True
+left_index = True
+```
+## 数据的可视化
