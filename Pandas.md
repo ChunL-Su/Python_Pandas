@@ -346,3 +346,35 @@ right_index = True
 left_index = True
 ```
 ## 数据的可视化
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# data = pd.Series(np.random.randn(1000), index=np.arange(1000))   # 一条线
+data = pd.DataFrame(np.random.randn(1000, 4), columns=list('ABCD'))  # 四条线
+data = data.cumsum()   # 累加过程(也可以对数据进行其他操作)
+
+# 绘制过程
+data.plot()  # plot里边有很多参数，可以设置颜色，线条宽度等
+plt.show()
+```
+```python
+# 除了plot还有很多图标
+# bar,hist,box,kde,area,scatter,hexbin,pie等
+# 下面列出scatter的简单使用，其他图类似
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# data = pd.Series(np.random.randn(1000), index=np.arange(1000))   # 一条线
+data = pd.DataFrame(np.random.randn(1000, 4), columns=list('ABCD'))  # 四条线
+data = data.cumsum()   # 累加过程(也可以对数据进行其他操作)
+
+# 绘制过程
+ax = data.plot.scatter(x='A', y='B', color='pink', label='Class 1')
+# 两幅图结合在一起用ax
+data.plot.scatter(x='A', y='D', color='blue', label='Class 2', ax=ax)
+
+plt.show()
+```
